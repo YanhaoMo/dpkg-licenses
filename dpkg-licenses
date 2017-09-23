@@ -30,22 +30,35 @@ Usage: $0
 .e
     exit 1
 esac
+pkg=$1
 
 SCRIPTLIB=$(dirname $(readlink -f "$0"))/lib/
 test -d "$SCRIPTLIB"
 
 format='%-30s %-30s %-6s %-60s %s\n'
+ver=$(uname -m)
+if [[ $pkg != "" ]]; then
+    if [[ $ver == "x86_64" ]]; then
+    echo "# $pkg x86桌面版依赖包许可证列表\n"
+    fi
+else
+    if [[ $ver == "x86_64" ]]; then
+        echo "# x86桌面版软件包许可证列表\n"
+    fi
+fi
+
+
 printf "$format" "|Name" "|Version" "|Arch" "|Description" "|Licenses|"
 echo "|------------------------------|------------------------------|------|------------------------------------------------------------|--------|"
 
-pkg=$1
 if [[ $pkg != "" ]]; then
     apt-cache depends $pkg | grep -e '^  Depends:' | while read a p; do
         dpkg -l $p | grep '^.[iufhwt]' | while read pState package pVer pArch pDesc; do
             license=
             for method in "$SCRIPTLIB"/reader*; do
             [ -f "$method" ] || continue
-            license=$("$method" "$pkg")
+            license=$("$method" "$package")
+            #echo $License
             [ $? -eq 0 ] || exit 1
             [ -n "$license" ] || continue
             # remove line breaks and spaces
