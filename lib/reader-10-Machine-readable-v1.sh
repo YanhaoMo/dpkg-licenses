@@ -57,7 +57,7 @@ case "$format" in
     ;;
   *)
     echo "WARNING: Unknown format of $copyrightfile: $format" >&2
-    exit 1  # unknown format
+    #exit 1  # unknown format
 esac
 
 if [ -n "$result" ]; then
