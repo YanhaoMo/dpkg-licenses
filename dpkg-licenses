@@ -73,7 +73,7 @@ if [[ $pkg != "" ]]; then
             [ $? -eq 0 ] || exit 1
             [ -n "$license" ] || continue
             # remove line breaks and spaces
-            license=$(echo "$license" | tr '\n' ' ' | sed -r -e 's/ +/ /g' -e 's/^ +//' -e 's/ +$//')
+            license=$(echo "$license" | tr '\n' ',' | sed -r -e 's/ +/ /g' -e 's/^ +//' -e 's/ +$//' | sed 's/,$//')
             [ -z "$license" ] || break
             done
             [ -n "$license" ] || license='unknown'
@@ -90,7 +90,7 @@ else
     [ $? -eq 0 ] || exit 1
     [ -n "$license" ] || continue
     # remove line breaks and spaces
-    license=$(echo "$license" | tr '\n' ' ' | sed -r -e 's/ +/ /g' -e 's/^ +//' -e 's/ +$//')
+    license=$(echo "$license" | tr '\n' ',' | sed -r -e 's/ +/ /g' -e 's/^ +//' -e 's/ +$//' | sed 's/,$//')
     [ -z "$license" ] || break
     done
     [ -n "$license" ] || license='unknown'
