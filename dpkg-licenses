@@ -39,12 +39,23 @@ format='%-30s %-30s %-6s %-60s %s\n'
 ver=$(uname -m)
 if [[ $pkg != "" ]]; then
     if [[ $ver == "x86_64" ]]; then
-    echo "# $pkg x86桌面版依赖包许可证列表\n"
+        echo "# $pkg x86桌面版依赖包许可证列表"
+    elif [[ $ver == "mips64" ]]; then
+        echo "# $pkg 龙芯桌面版依赖包许可证列表"
+    elif [[ $ver == "sw_64" ]]; then
+        echo "# $pkg 申威服务器版依赖包许可证列表"
     fi
+    echo
 else
     if [[ $ver == "x86_64" ]]; then
-        echo "# x86桌面版软件包许可证列表\n"
+        echo "# x86桌面版软件包许可证列表"
+    elif [[ $ver == "mips64" ]]; then
+        echo "# 龙芯桌面版软件包许可证列表"
+    elif [[ $ver == "sw_64" ]]; then
+        echo "# 申威服务器版软件包许可证列表"
     fi
+    echo
+
 fi
 
 
